@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>照片地图</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%23be4632'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
+  <link rel="stylesheet" href="vendor/markercluster/MarkerCluster.css" />
+  <link rel="stylesheet" href="vendor/markercluster/MarkerCluster.Default.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="mark" aria-hidden="true"></span>
+      <div>
+        <h1>照片地图</h1>
+        <p id="status">点开照片，就能写下记忆。有拍摄坐标的，会标到地图上。</p>
+      </div>
+    </div>
+    <div class="actions">
+      <button type="button" id="clear" class="btn ghost" disabled>清空</button>
+      <button type="button" id="samples" class="btn">看示例</button>
+      <button type="button" id="add" class="btn primary">添加照片</button>
+      <input id="file" type="file" accept="image/*" multiple hidden />
+    </div>
+  </header>
+
+  <main>
+    <section class="map-panel" aria-label="地图">
+      <div id="map"></div>
+      <div id="place-banner" class="place-banner" hidden>
+        <p id="place-banner-text">在地图上点一下，安放这张照片</p>
+        <button type="button" id="place-cancel" class="btn">取消</button>
+      </div>
+      <div id="empty" class="empty">
+        <h2>把照片放回它被拍下的地方</h2>
+        <p>有拍摄坐标的照片会落到地图上。点开一张照片，把那天想记住的话写进去。</p>
+        <p class="hint">从聊天软件另存的图片，位置常常已经被去掉。这种照片可以点开后，自己放到地图上。</p>
+      </div>
+      <p id="map-note" class="map-note" hidden>这些照片没有拍摄坐标。点开一张，可以自己放到地图上。</p>
+      <div id="drop" class="drop" hidden>松开即可添加照片</div>
+    </section>
+
+    <aside class="side" aria-label="照片和文字">
+      <article id="detail" class="detail">
+        <div id="detail-empty" class="detail-empty">
+          <p class="kicker">记忆</p>
+          <p>点开地图或列表里的照片。这里会告诉你它在哪里拍的，也可以把文字写进去。</p>
+        </div>
+        <div id="detail-body" hidden>
+          <button type="button" id="photo-button" class="photo-button">
+            <img id="detail-img" alt="" />
+            <span id="write-hint">点击照片，写下记忆</span>
+          </button>
+          <p id="detail-sentence"></p>
+          <label class="field">
+            <span class="kicker">标题</span>
+            <input id="title-input" class="title-input" type="text" maxlength="80" placeholder="给这段记忆起个名字" autocomplete="off" />
+          </label>
+          <label class="field">
+            <span class="kicker">记忆</span>
+            <textarea id="memory-text" class="memory-input" rows="4" maxlength="4000" placeholder="那天的光、风，或者一句想留下来的话。"></textarea>
+          </label>
+          <div class="edit-actions">
+            <button type="button" id="place-btn" class="btn">在地图上选择位置</button>
+            <button type="button" id="restore-btn" class="btn ghost" hidden>回到拍摄位置</button>
+            <span id="save-state" aria-live="polite"></span>
+          </div>
+          <dl id="detail-facts" class="facts"></dl>
+          <button type="button" id="delete-btn" class="btn ghost danger">移除这张照片</button>
+        </div>
+      </article>
+      <div class="list-head">
+        <h2>照片</h2>
+        <span id="count"></span>
+      </div>
+      <ul id="list" class="list"></ul>
+      <p class="privacy">照片和写下的文字只留在这个浏览器里，不会上传。请一直用同一个地址打开。查找地名时，只会把坐标发出去。</p>
+    </aside>
+  </main>
+
+  <div id="toast" class="toast" hidden role="status"></div>
+
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script src="vendor/markercluster/leaflet.markercluster.js"></script>
+  <script src="vendor/exifr/full.umd.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
