@@ -1,0 +1,10 @@
+Third-party libraries included in this folder:
+
+Leaflet 1.9.4 — BSD 2-Clause License. Copyright (c) 2010-2023 Vladimir Agafonkin, Copyright (c) 2010-2011 CloudMade.
+https://github.com/Leaflet/Leaflet
+
+Leaflet.markercluster — MIT License. Copyright 2012 David Leaver.
+https://github.com/Leaflet/Leaflet.markercluster
+
+exifr — MIT License. Copyright (c) 2020 Mike Kovarik.
+https://github.com/MikeKovarik/exifr
